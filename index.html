@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VaultOps | AWS Backup & Recovery</title><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#">☁ VaultOps</a>
+  <nav><a href="#overview">Overview</a><a href="#backups">Backups</a><a href="#recovery">Recovery</a></nav>
+  <span class="env">AWS ARCHITECTURE DEMO</span>
+</header>
+<main>
+  <section class="hero">
+    <div><p class="eyebrow">CLOUD RESILIENCE CONSOLE</p><h1>Protect data.<br><span>Recover with confidence.</span></h1>
+    <p>Manage backup snapshots, simulate recovery points and monitor storage health from one dashboard.</p></div>
+    <div class="hero-mark">🛡️<small>BACKUP<br>READY</small></div>
+  </section>
+
+  <section id="overview" class="stats">
+    <article class="stat"><small>BACKUP SNAPSHOTS</small><strong id="snapshotCount">0</strong><span>Saved recovery points</span></article>
+    <article class="stat"><small>STORED DATA</small><strong id="storageUsed">0 B</strong><span>Browser demo storage</span></article>
+    <article class="stat"><small>LAST BACKUP</small><strong id="lastBackup">Not yet</strong><span id="lastBackupSub">Create your first snapshot</span></article>
+    <article class="stat"><small>RECOVERY STATUS</small><strong id="recoveryStatus">Ready</strong><span>Local simulation</span></article>
+  </section>
+
+  <section class="layout">
+    <section class="panel" id="backups">
+      <div class="section-head"><div><p class="eyebrow">BACKUP MANAGEMENT</p><h2>Create a backup snapshot</h2><p class="muted">Select a file and store a versioned recovery point in this browser.</p></div><span class="tag">VERSIONING ON</span></div>
+      <form id="backupForm" class="backup-form">
+        <label class="file-drop" for="sourceFile"><span class="upload-icon">＋</span><b>Choose data file</b><small>Any file type · maximum 15 MB</small><input id="sourceFile" type="file" required></label>
+        <label>Backup label<input id="backupLabel" type="text" maxlength="50" placeholder="e.g. Monthly database backup"></label>
+        <label>Storage tier<select id="storageTier"><option value="STANDARD">S3 Standard (frequent access)</option><option value="STANDARD_IA">S3 Standard-IA (infrequent access)</option><option value="GLACIER">S3 Glacier (archive simulation)</option></select></label>
+        <button class="primary" type="submit">Create backup snapshot</button>
+      </form>
+      <p class="notice">Demo only: files are saved in browser storage, not uploaded to an AWS account.</p>
+    </section>
+
+    <section class="panel">
+      <div class="section-head"><div><p class="eyebrow">RECOVERY WORKSPACE</p><h2>Restore a recovery point</h2><p class="muted">Choose a snapshot to download a restored copy.</p></div></div>
+      <div id="recoveryEmpty" class="empty">No recovery points available yet.</div>
+      <div id="recoveryList" class="recovery-list"></div>
+      <div class="recovery-info"><b>Recovery workflow</b><p>Choose snapshot → validate version → download restored file → verify recovered data.</p></div>
+    </section>
+  </section>
+
+  <section class="panel history-panel">
+    <div class="section-head"><div><p class="eyebrow">BACKUP CATALOGUE</p><h2>Backup history</h2><p class="muted">Each snapshot is stored as an independent version.</p></div><div class="row"><input id="search" placeholder="Search backups…"><button id="exportManifest" class="secondary" type="button">Export manifest</button></div></div>
+    <div class="table-wrap"><table><thead><tr><th>Snapshot</th><th>File</th><th>Size</th><th>Storage tier</th><th>Created</th><th>Actions</th></tr></thead><tbody id="backupRows"></tbody></table></div>
+    <p id="historyEmpty" class="empty">Your backup snapshots will appear here.</p>
+  </section>
+
+  <section id="recovery" class="panel architecture">
+    <div><p class="eyebrow">REFERENCE ARCHITECTURE</p><h2>How an AWS implementation works</h2><p class="muted">This project demonstrates the workflow. These AWS services are not connected in this browser-only version.</p></div>
+    <div class="flow">
+      <div><b>1. Source data</b><small>Application / database</small></div><i>→</i>
+      <div><b>2. Amazon S3</b><small>Versioned backup bucket</small></div><i>→</i>
+      <div><b>3. AWS Backup</b><small>Plan & retention</small></div><i>→</i>
+      <div><b>4. Recovery</b><small>Restore & verify</small></div>
+    </div>
+    <div class="aws-services"><span>Amazon S3</span><span>AWS Backup</span><span>Amazon EventBridge</span><span>AWS CloudTrail</span><span>Amazon CloudWatch</span></div>
+  </section>
+</main>
+<footer>VaultOps · Advanced Cloud Computing academic prototype · AWS integration not enabled</footer>
+<div id="toast" role="status"></div>
+<script src="app.js"></script>
+</body></html>
